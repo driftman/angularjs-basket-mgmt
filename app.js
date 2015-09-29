@@ -1,18 +1,4 @@
-var myApp = angular.module('myApp', ['LocalStorageModule']);
 
-myApp.config(function (localStorageServiceProvider) {
-
-  localStorageServiceProvider
-    .setPrefix('myApp')
-    .setStorageType('sessionStorage')
-    .setNotify(true, true);
-    
-});
-
-
-myApp.controller('FirstCtrl', FirstCtrl);
-myApp.factory('BasketService', BasketService);
-myApp.factory('ItemsService', ItemsService);
 function ItemsService()
 {
 	var items = 
@@ -20,10 +6,6 @@ function ItemsService()
 	{_id: 2, productName: "HP Laser Jet", unitPrice: 250},
 	{_id: 3, productName: "Asus X200", unitPrice: 800}];
 
-	return {
-		add: add,
-		get: get
-	};
 
 	function add(item)
 	{
@@ -40,17 +22,17 @@ function ItemsService()
 	{
 		return items;
 	}
+	
+
+	return {
+		add: add,
+		get: get
+	};
+
+	
 }
 function BasketService(localStorageService)
 {
-	return {
-		init : init,
-		add: add,
-		get: get,
-		remove: remove,
-		clear: clear
-	};
-
 	function add(item) 
 	{
 		var items = get();
@@ -117,6 +99,14 @@ function BasketService(localStorageService)
 			console.log("The basket cookie is already setted !");
 		}
 	}
+
+	return {
+		init : init,
+		add: add,
+		get: get,
+		remove: remove,
+		clear: clear
+	};
 }
 
 function FirstCtrl($scope, BasketService, ItemsService) {
@@ -138,4 +128,24 @@ function FirstCtrl($scope, BasketService, ItemsService) {
 	//{name : 'MacBook Pro', price: '$1250'}
 	//{name : 'HP Laser Jet', price: '$140'}
 }
+function LocalStorageConfig(localStorageServiceProvider) {
+
+  localStorageServiceProvider
+    .setPrefix('myApp')
+    .setStorageType('sessionStorage')
+    .setNotify(true, true);
+    
+}
+
+
+
+var myApp = angular.module('myApp', ['LocalStorageModule']);
+
+
+
+myApp.config(LocalStorageConfig);
+myApp.controller('FirstCtrl', FirstCtrl);
+myApp.factory('BasketService', BasketService);
+myApp.factory('ItemsService', ItemsService);
+
 
