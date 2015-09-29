@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./bower_components/angular/angular.js"></script>
+	<script type="text/javascript" src="./bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+	<link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/css/bootstrap.min.css">
+</head>
+<body ng-app="myApp" ng-controller="FirstCtrl" style="margin: 0 auto; width: 70%;">
+				<h3>Add a item</h3>
+				<form class="form">
+					<input type="text" ng-model="basket.productName" placeholder="product name ...">
+					<br>
+					<input type="number" ng-model="basket.unitPrice" placeholder="product price ...">
+					<br>
+					<button ng-click="addToBasket(basket)">add to store</button>
+				</form>
+				<br>
+				<div style="min-width: 100%;">
+					<div style="float: left; min-width: 50%;">
+						<h3>Store</h3>
+						<ul>
+							<li ng-repeat="item in items" style="list-style: none; margin: 15px;">
+								<h3 style="font-size: 15px;">{{item.productName}}</h3>
+								<b style="">$ {{ item.unitPrice }}</b>
+								<button ng-click="addToBasket(item)">add to basket</button>
+							</li>
+						</ul>
+					</div>
+					<div style="float: left; min-width: 50%;">
+						<h3>Basket</h3>
+						<button ng-click="clearBasket()">clear your basket</button>
+						<p style="overflow: hidden;">{{basket}}</p>
+
+					</div>
+				</div>
+			
+</body>
+</html>
